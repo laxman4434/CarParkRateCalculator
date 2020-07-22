@@ -36,9 +36,9 @@ namespace CarParkRateCalculator.Tests
         {
             var EntryDateTime = new DateTime(year, month, day, hour, mins, secs);
             var ExitDateTime = EntryDateTime.AddMinutes(addmins);
-            double result = standardRateService.CalculateRate(EntryDateTime, ExitDateTime );
+            var result = standardRateService.CalculateRate(EntryDateTime, ExitDateTime );
 
-            Assert.AreEqual(expectedresult, result);
+            Assert.AreEqual(expectedresult, result.FinalRate);
 
         }
 

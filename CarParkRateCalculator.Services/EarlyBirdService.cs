@@ -6,9 +6,9 @@ namespace CarParkRateCalculator.Services
 {
     public class EarlyBirdService:IRateCalculatorService
     {
-        public double CalculateRate(DateTime entryDateTime, DateTime exitDateTime)
+        public RateRequestResponse CalculateRate(DateTime entryDateTime, DateTime exitDateTime)
         {
-            return 13;
+            return new RateRequestResponse { FinalRate = 13, RateType= Enum.GetName(typeof(RequestRateType), RequestRateType.Earlybird)} ;
         }
 
         public bool IsRateType(DateTime entryDateTime, DateTime exitDateTime)

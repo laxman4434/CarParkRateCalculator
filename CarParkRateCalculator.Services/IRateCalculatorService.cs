@@ -4,12 +4,6 @@ using System.Text;
 
 namespace CarParkRateCalculator.Services
 {
-    enum RateType
-    {
-        FlatRate,
-        HourlyRate
-    }
-
     public interface IRateCalculatorService
     {
         /// <summary>
@@ -18,7 +12,7 @@ namespace CarParkRateCalculator.Services
         /// <param name="entryDateTime"></param>
         /// <param name="exitdateTime"></param>
         /// <returns></returns>
-        double CalculateRate(DateTime entryDateTime, DateTime exitDateTime);
+        RateRequestResponse CalculateRate(DateTime entryDateTime, DateTime exitDateTime);
 
         /// <summary>
         /// Selects the rate type based on the entry and exit time

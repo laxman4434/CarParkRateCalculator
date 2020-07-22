@@ -31,9 +31,9 @@ namespace CarParkRateCalculator.Tests
         public void CalculateRate_WhenEntryAndExitTimesAreInSpeciFiedTimes_ReturnCorrectAmount()
         {
 
-            double result = nightRateService.CalculateRate(new DateTime(2020, 07, 17, 19, 30, 25), new DateTime(2020, 07, 17, 21, 30, 25));
+            var result = nightRateService.CalculateRate(new DateTime(2020, 07, 17, 19, 30, 25), new DateTime(2020, 07, 17, 21, 30, 25));
 
-            Assert.AreEqual(6.5, result);
+            Assert.AreEqual(6.5, result.FinalRate);
 
         }
 

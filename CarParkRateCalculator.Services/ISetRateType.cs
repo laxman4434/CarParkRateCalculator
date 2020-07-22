@@ -4,6 +4,6 @@ namespace CarParkRateCalculator.Services
 {
     public interface ISetRateType
     {
-        double RateCalculation(DateTime entryDateTime, DateTime exitDateTime);
+        RateRequestResponse RateCalculation(DateTime entryDateTime, DateTime exitDateTime);
     }
 }

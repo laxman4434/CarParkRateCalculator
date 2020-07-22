@@ -6,9 +6,9 @@ namespace CarParkRateCalculator.Services
 {
     public class WeekendRateService : IRateCalculatorService
     {
-        public double CalculateRate(DateTime entryDateTime, DateTime exitdateTime)
+        public RateRequestResponse CalculateRate(DateTime entryDateTime, DateTime exitDateTime)
         {
-            return 10;
+            return new RateRequestResponse { FinalRate = 10, RateType = Enum.GetName(typeof(RequestRateType), RequestRateType.WeekendRate) };
         }
 
         public bool IsRateType(DateTime entryDateTime, DateTime exitDateTime)

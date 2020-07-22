@@ -14,12 +14,12 @@ namespace CarParkRateCalculator.Services
         /// <param name="entryDateTime"></param>
         /// <param name="exitdateTime"></param>
         /// <returns></returns>
-        public double CalculateRate(DateTime entryDateTime, DateTime exitdateTime)
+        public RateRequestResponse CalculateRate(DateTime entryDateTime, DateTime exitdateTime)
         {
-            if ((entryDateTime.DayOfWeek == DayOfWeek.Saturday || entryDateTime.DayOfWeek == DayOfWeek.Sunday) 
+            if ((entryDateTime.DayOfWeek == DayOfWeek.Saturday || entryDateTime.DayOfWeek == DayOfWeek.Sunday)
                 && (exitdateTime.DayOfWeek == DayOfWeek.Saturday || exitdateTime.DayOfWeek == DayOfWeek.Sunday))
             {
-                return 10;
+                return new RateRequestResponse { FinalRate = 10, RateType = Enum.GetName(typeof(RequestRateType), RequestRateType.StandardRate) };
             }
 
             //Get the difference between entry time and exit time
@@ -29,12 +29,14 @@ namespace CarParkRateCalculator.Services
             var intervalmins = interval.Hours * 60 + interval.Minutes; // interval.TotalMinutes; //interval.Days * 24 * 60 + interval.Hours * 60 + interval.Minutes;
             var intervalHours = interval.TotalHours;
 
+            var price = CalculateHourlyRate(intervalmins);
+
             if (intervalHours <= 24)
             {
-                return CalculateHourlyRate(intervalmins);
+                return new RateRequestResponse { FinalRate = price, RateType = Enum.GetName(typeof(RequestRateType), RequestRateType.StandardRate)};
             }
 
-            return CalculateHourlyRate(intervalmins) + (interval.Days * 20);
+            return new RateRequestResponse { FinalRate = price = (interval.Days * 20), RateType = Enum.GetName(typeof(RequestRateType), RequestRateType.StandardRate) };
 
         }
 

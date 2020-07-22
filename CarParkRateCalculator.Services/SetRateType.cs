@@ -14,7 +14,7 @@ namespace CarParkRateCalculator.Services
             _rateCalculatorService = rateCalculatorService;
         }
 
-        public double RateCalculation(DateTime entryDateTime, DateTime exitDateTime)
+        public RateRequestResponse RateCalculation(DateTime entryDateTime, DateTime exitDateTime)
         {
             IRateCalculatorService setRate = null;
 
