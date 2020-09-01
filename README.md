@@ -1,5 +1,5 @@
 # CarParkRateCalculator
-A demo .NET Core(3.1) Web APi project to calculate the parking fee based on the entry time and exit time.
+A demo .NET Core(3.1) Web APi project (with Swagger) to calculate the parking fee based on the entry time and exit time.
 
 Create an API that does a rate calculation engine for a carpark 
  The inputs for this engine are:    
