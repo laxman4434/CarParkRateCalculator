@@ -9,19 +9,19 @@ namespace CarParkRateCalculator.Tests
     [TestClass]
     public class StandardRateServiceTests
     {
-        private StandardRateService standardRateService;
+        private StandardRateService _standardRateService;
 
         [TestInitialize]
         public void Setup()
         {
-            standardRateService = new StandardRateService();
+            _standardRateService = new StandardRateService();
         }
 
         [TestMethod]
         public void IsRateType_WhenEntryAndExitTimesAreInSpeciFiedTimes_ReturnTrue()
         {
 
-            bool result = standardRateService.IsRateType(new DateTime(2020, 07, 16, 10, 45, 25), new DateTime(2020, 07, 19, 22, 30, 25));
+            bool result = _standardRateService.IsRateType(new DateTime(2020, 07, 16, 10, 45, 25), new DateTime(2020, 07, 19, 22, 30, 25));
 
             Assert.IsTrue(result);
 
@@ -36,7 +36,7 @@ namespace CarParkRateCalculator.Tests
         {
             var EntryDateTime = new DateTime(year, month, day, hour, mins, secs);
             var ExitDateTime = EntryDateTime.AddMinutes(addmins);
-            var result = standardRateService.CalculateRate(EntryDateTime, ExitDateTime );
+            var result = _standardRateService.CalculateRate(EntryDateTime, ExitDateTime );
 
             Assert.AreEqual(expectedresult, result.FinalRate);
 
@@ -46,7 +46,7 @@ namespace CarParkRateCalculator.Tests
         public void IsRateType_WhenEntryAndExitTimeIsWeekend_ReturnFalse()
         {
 
-            bool result = standardRateService.IsRateType(new DateTime(2020, 07, 18, 10, 30, 25), new DateTime(2020, 07, 19, 16, 30, 25));
+            bool result = _standardRateService.IsRateType(new DateTime(2020, 07, 18, 10, 30, 25), new DateTime(2020, 07, 19, 16, 30, 25));
 
             Assert.IsFalse(result);
 

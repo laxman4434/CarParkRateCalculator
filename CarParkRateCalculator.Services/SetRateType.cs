@@ -7,28 +7,20 @@ namespace CarParkRateCalculator.Services
 {
     public class SetRateType : ISetRateType
     {
-        private readonly IEnumerable<IRateCalculatorService> _rateCalculatorService;
+        private readonly IEnumerable<IRateCalculatorService> _rateCalculatorServices;
 
-        public SetRateType(IEnumerable<IRateCalculatorService> rateCalculatorService)
+        public SetRateType(IEnumerable<IRateCalculatorService> rateCalculatorServices)
         {
-            _rateCalculatorService = rateCalculatorService;
+            _rateCalculatorServices = rateCalculatorServices;
         }
 
         public RateRequestResponse RateCalculation(DateTime entryDateTime, DateTime exitDateTime)
         {
             IRateCalculatorService setRate = null;
 
-            //Use reflection to get the list of all classes that implements IRateCalculatorService
-            //var types = AppDomain.CurrentDomain.GetAssemblies()
-            //            .SelectMany(s => s.GetTypes())
-            //            .Where(p => typeof(IRateCalculatorService).IsAssignableFrom(p) && !p.IsInterface);
-
-            //create interface and use Dependency Injection to populate all classes that implements interface
-
-            foreach (var calc in _rateCalculatorService)
+            foreach (var calc in _rateCalculatorServices)
             {
-                var result = calc.IsRateType(entryDateTime, exitDateTime);
-                if (result)
+                if (calc.IsRateType(entryDateTime, exitDateTime))
                 {
                     setRate = calc;
                     break;

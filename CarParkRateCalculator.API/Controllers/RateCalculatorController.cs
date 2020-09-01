@@ -47,20 +47,19 @@ namespace CarParkRateCalculator.Controllers
                     return BadRequest("Invalid dates");
                 }
 
+                //if (rateRequest.EntryDateTime >= DateTime.Now)
+                //{
+                //    _logger.LogInformation($" Entry Time  {rateRequest.EntryDateTime} cannot be greater than current time  {DateTime.Now}");
+                //    //ModelState.AddModelError("EntryDateTime", "Entry Time cannot be greater than Exit Time");
+                //    return BadRequest("Car Park Entry Time cannot be greater than current time");
+                //}
+
                 if (rateRequest.EntryDateTime >= rateRequest.ExitDateTime)
                 {
                     _logger.LogInformation($" Entry Time  {rateRequest.EntryDateTime} cannot be greater than Exit Time  {rateRequest.ExitDateTime}");
                     //ModelState.AddModelError("EntryDateTime", "Entry Time cannot be greater than Exit Time");
                     return BadRequest("Car Park Entry Time cannot be greater than Exit Time");
                 }
-
-                if(rateRequest.EntryDateTime >= DateTime.Now)
-                {
-                    _logger.LogInformation($" Entry Time  {rateRequest.EntryDateTime} cannot be greater than current time  {DateTime.Now}");
-                    //ModelState.AddModelError("EntryDateTime", "Entry Time cannot be greater than Exit Time");
-                    return BadRequest("Car Park Entry Time cannot be greater than current time");
-                }
-
 
                 var result = _setRateType.RateCalculation(rateRequest.EntryDateTime, rateRequest.ExitDateTime);
 
