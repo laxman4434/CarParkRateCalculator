@@ -7,6 +7,7 @@ using Moq;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Text;
 
 namespace CarParkRateCalculator.Tests
@@ -62,6 +63,34 @@ namespace CarParkRateCalculator.Tests
             Assert.AreEqual("Car Park Entry Time cannot be greater than Exit Time", validationResult.Value);
         }
 
+        [Test]
+        public void Get_WhenPassedAcceptedEntryAndExitTimes_ReturnOkWithAmountChargedBasedOnTimes()
+        {
+            _setRateType.Setup(sr => sr.RateCalculation(It.IsAny<DateTime>(), It.IsAny<DateTime>())).Returns(
+                new RateRequestResponse { 
+                    FinalRate=20,
+                    RateType= Enum.GetName(typeof(RequestRateType), RequestRateType.Earlybird)
+                });
+
+            var result = _controller.Get(new RateRequest { EntryDateTime = DateTime.Now.AddHours(-8), ExitDateTime = DateTime.Now.AddHours(-1) });
+
+            var exceptionResult = result as OkObjectResult;
+
+            Assert.AreEqual(200, exceptionResult.StatusCode);
+        }
+
+        [Test]
+        public void Get_WhenExceptionOccured_ReturnInternalServerError()
+        {
+            _setRateType.Setup(sr => sr.RateCalculation(It.IsAny<DateTime>(), It.IsAny<DateTime>())).Throws<Exception>();
+            var result = _controller.Get(new RateRequest { EntryDateTime = DateTime.Now.AddHours(-8), ExitDateTime = DateTime.Now.AddHours(-1)});
+
+            var exceptionResult = result as ObjectResult;
+
+            Assert.AreEqual(500, exceptionResult.StatusCode);
+            Assert.AreEqual("Error retrieving the calculations", exceptionResult.Value);
+
+        }
 
     }
 }

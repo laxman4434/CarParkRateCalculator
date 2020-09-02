@@ -6,14 +6,21 @@ using System.Threading.Tasks;
 
 namespace CarParkRateCalculator.Api.Models
 {
+    /// <summary>
+    /// Object with request params
+    /// </summary>
     public class RateRequest
     {
-        // Entry time into the Car Park
+        /// <summary>
+        /// Entry time into the Car Park
+        /// </summary>
         [Required]
         [DataType(DataType.DateTime)]
         public DateTime EntryDateTime { get; set; }
 
-        //Exit time out of the Car Park
+        /// <summary>
+        /// Exit time out of the Car Park
+        /// </summary>
         [Required]
         [DataType(DataType.DateTime)]
         public DateTime ExitDateTime { get; set; }
